@@ -3,6 +3,7 @@ const express = require("express")
 const multer = require("multer")
 const del = require("del")
 const XLSX = require("xlsx")
+const SupspectMapper = require("./services/SupspectMapper")
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -11,8 +12,6 @@ const upload = multer({ dest: `tmp/` })
 
 const routes = require('./routes')
 const handle = routes.getRequestHandler(app)
-
-const extractColAndRow = (columnKey) => ({col: columnKey.substring(0, 1), row: columnKey.substring(1, columnKey.length)})
 
 app.prepare()
   .then(() => {
@@ -26,28 +25,25 @@ app.prepare()
         var worksheet = workbook.Sheets[usageSheetName]
 
         let sheetRow = 0
-        let isVal = false
+        let supspect = {}
+        let supspects = []
 
-        Object.keys(worksheet).map( columnKey => {
-          const { col, row } = extractColAndRow(columnKey)
-
+        for(const columnKey in worksheet) {
+          const { col, row } = SupspectMapper.extractColAndRow(columnKey)
           if(parseInt(row) !== NaN && row >= 4) {
+            if(!SupspectMapper.isRowVal(worksheet, row)) break
+
             if(sheetRow !== row) {
-              try {
-                isVal = worksheet[`A${row}`].v !== ""
-              } catch(err) {
-                isVal = false
-              }
+              sheetRow = row
+              if(Object.keys(supspect).length !== 0) supspects.push(supspect)
+              supspect = {}
             }
 
-            if(isVal) {
-              console.log(col)
-              console.log(row)
-              console.log(worksheet[columnKey].v)
-              console.log(" ----- ")
-            }
+            const val = SupspectMapper.mapFieldAndVal(col, worksheet[`${col}${row}`].v)
+            supspect = { ...supspect, ...val }
           }
-        })
+        }
+        supspects.push(supspect)
 
         res.send("Upload Complete")
       } catch(err) {
