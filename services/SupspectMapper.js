@@ -1,6 +1,27 @@
+const FILE_COLUMN_TO_DB_FIELD = {
+  "A": "date",
+  "B": "time",
+  "C": "police_area",
+  "D": "requester",
+  "E": "checking_area",
+  "F": "car_register",
+  "G": "car_owner",
+  "H": "motorcycle_register",
+  "I": "motorcycle_owner",
+  "J": "color",
+  "K": "brand",
+  "L": "model",
+  "M": "type",
+  "N": "id_no",
+  "O": "name",
+  "P": "result",
+  "Q": "checking",
+  "R": "detail",
+}
+
 module.exports = class SupspectMapper {
   static mapFieldAndVal(col, val) {
-    return { [col]: val }
+    return { [FILE_COLUMN_TO_DB_FIELD[col]]: val }
   }
 
   static isRowVal(worksheet, row) {

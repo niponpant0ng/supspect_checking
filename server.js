@@ -45,6 +45,12 @@ app.prepare()
         }
         supspects.push(supspect)
 
+        try {
+          await del(xlsxFile)
+        } catch(err) {
+          console.warn("Can't delete upload file")
+        }
+
         res.send("Upload Complete")
       } catch(err) {
         console.log(err)
