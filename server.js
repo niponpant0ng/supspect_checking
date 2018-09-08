@@ -3,7 +3,12 @@ const express = require("express")
 const multer = require("multer")
 const del = require("del")
 const XLSX = require("xlsx")
+const DotEnv = require('dotenv')
+DotEnv.config()
+
+const connect = require("./services/Connect")
 const SupspectMapper = require("./services/SupspectMapper")
+const SupsepctService = require("./services/SupspectService")
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -51,10 +56,13 @@ app.prepare()
           console.warn("Can't delete upload file")
         }
 
-        res.send("Upload Complete")
+        const supsepctService = new SupsepctService(connect())
+        supsepctService.save(supspects)
+
+        res.redirect("/")
       } catch(err) {
         console.log(err)
-        res.sendStatus(500)
+        res.sendStatus(500).send("<a href='/'>Can't upload file</a>")
       }
     })
 
