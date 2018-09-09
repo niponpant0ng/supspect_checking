@@ -1,0 +1,42 @@
+version: '3.0'
+services:
+  db:
+    image: mysql:5.6
+    container_name: supspect-checking-mysql
+    volumes:
+      - supspect-db-volume:/var/lib/mysql
+      - ${PWD}/init_db:/docker-entrypoint-initdb.d/
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=supect_checking
+    ports:
+      - "3308:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: supspect-checking-phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "2005:80"
+    links:
+      - db:db
+
+  web:
+    image: supspect-web:1.1
+    container_name: supspect-web
+    depends_on:
+      - db
+    links:
+      - db:db
+    environment:
+      - DB_HOST=192.168.1.101
+      - DB_PORT=3308
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB=supect_checking
+    ports:
+      - "3000:3000"
+
+volumes:
+  supspect-db-volume:

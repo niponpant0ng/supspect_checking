@@ -18,7 +18,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC"
