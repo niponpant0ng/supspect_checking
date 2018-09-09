@@ -68,12 +68,18 @@ app.prepare()
 
     server.get("/searchResults", async (req, res) => {
       const supsepctService = new SupsepctService(connect())
-      res.send(JSON.stringify(await supsepctService.find(req.query)))
+      try {
+        const results = await supsepctService.find(req.query)
+        res.send(JSON.stringify(results))
+      } catch(err) {
+        console.log(err)
+        res.sendStatus(500).send("Can't search result")
+      }
     })
 
     server
       .use(handle)
-      .listen(3003)
+      .listen(3004)
   })
   .catch((ex) => {
     console.error(ex.stack)
