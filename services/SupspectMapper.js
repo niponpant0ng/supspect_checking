@@ -21,7 +21,19 @@ const FILE_COLUMN_TO_DB_FIELD = {
 
 module.exports = class SupspectMapper {
   static mapFieldAndVal(col, val) {
-    return { [FILE_COLUMN_TO_DB_FIELD[col]]: val }
+    const fieldName = FILE_COLUMN_TO_DB_FIELD[col]
+    const fieldVal = SupspectMapper.formatFieldValue(fieldName, val)
+
+    return { [fieldName]: fieldVal }
+  }
+
+  static formatFieldValue(fieldName, val) {
+    if(fieldName === FILE_COLUMN_TO_DB_FIELD["A"]) {
+      const [date, month, year] = val.split("-")
+      return `${year}-${month}-${date}`
+    }
+
+    return val
   }
 
   static isRowVal(worksheet, row) {
