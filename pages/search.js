@@ -1,5 +1,6 @@
-const React = require("react")
-const axios = require("axios")
+import React from "react"
+import axios from "axios"
+import Layout from "../components/Layout"
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -61,7 +62,7 @@ export default class Search extends React.Component {
     ))
 
     return (
-      <div>
+      <Layout>
         วันที่จาก: <input value={ dateFrom } onChange={ this.onFilterChanged.bind(null, 'dateFrom') }/>
         วันที่ถึง: <input value={ dateTo } onChange={ this.onFilterChanged.bind(null, 'dateTo') }/>
         เวลาจาก: <input value={ timeFrom } onChange={ this.onFilterChanged.bind(null, 'timeFrom') }/>
@@ -97,7 +98,7 @@ export default class Search extends React.Component {
             { rows }
           </tbody>
         </table>
-      </div>
+      </Layout>
     )
   }
 }
