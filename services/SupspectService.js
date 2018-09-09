@@ -13,7 +13,7 @@ module.exports = class SupsepctService {
     this.connect.end()
   }
 
-  find() {
+  find(filter) {
     return new Promise((resolve, rej) => {
       this.connect.connect()
 

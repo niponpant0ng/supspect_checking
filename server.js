@@ -68,7 +68,7 @@ app.prepare()
 
     server.get("/searchResults", async (req, res) => {
       const supsepctService = new SupsepctService(connect())
-      res.send(JSON.stringify(await supsepctService.find()))
+      res.send(JSON.stringify(await supsepctService.find(req.query)))
     })
 
     server
