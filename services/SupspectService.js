@@ -12,4 +12,16 @@ module.exports = class SupsepctService {
 
     this.connect.end()
   }
+
+  find() {
+    return new Promise((resolve, rej) => {
+      this.connect.connect()
+
+      this.connect.query("SELECT * FROM results", (err, res) => {
+        resolve(res)
+      })
+
+      this.connect.end()
+    })
+  }
 }

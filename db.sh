@@ -1,0 +1,1 @@
+docker run -v supspect_checking:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=supect_checking -p 3307:3306 -d mysql:5.6

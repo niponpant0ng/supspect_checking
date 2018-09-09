@@ -66,6 +66,11 @@ app.prepare()
       }
     })
 
+    server.get("/searchResults", async (req, res) => {
+      const supsepctService = new SupsepctService(connect())
+      res.send(JSON.stringify(await supsepctService.find()))
+    })
+
     server
       .use(handle)
       .listen(3003)
