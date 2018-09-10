@@ -1,0 +1,6 @@
+.next/
+init_db/
+node_modules/
+tmp/
+.env
+docker-compose.yaml
