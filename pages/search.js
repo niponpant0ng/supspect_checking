@@ -48,16 +48,14 @@ export default class Search extends React.Component {
         <td>{ result.police_area }</td>
         <td>{ result.requester }</td>
         <td>{ result.checking_area }</td>
-        <td>{ result.car_register }</td>
-        <td>{ result.car_owner }</td>
-        <td>{ result.motorcycle_register }</td>
-        <td>{ result.motorcycle_owner }</td>
+        <td>{ result.id_no }</td>
+        <td>{ result.name }</td>
+        <td>{ result.type }</td>
+        <td>{ result.plate_no }</td>
+        <td>{ result.owner }</td>
         <td style={ VEHICLE_COLOR_STYLE }>{ result.color }</td>
         <td style={ VEHICLE_BRAND_STYLE }>{ result.brand }</td>
         <td style={ VEHICLE_SERIE_STYLE }>{ result.model }</td>
-        <td>{ result.type }</td>
-        <td>{ result.id_no }</td>
-        <td>{ result.name }</td>
         <td>{ result.result }</td>
         <td>{ result.checking }</td>
         <td>{ result.detail }</td>
@@ -104,23 +102,20 @@ export default class Search extends React.Component {
                   <th scope="col" rowSpan="2">สภ</th>
                   <th scope="col" rowSpan="2">ผู้ขอข้อมูล</th>
                   <th scope="col" rowSpan="2">จุดตรวจ</th>
-                  <th scope="col" colSpan="2">จยย</th>
-                  <th scope="col" colSpan="2">รถยนต์</th>
+                  <th scope="col" rowSpan="2">หมายเลข 13 หลัก</th>
+                  <th scope="col" rowSpan="2">บุคคล(ชื่อ/สกุล)</th>
+                  <th scope="col" rowSpan="2">ประเภท</th>
+                  <th scope="col" colSpan="2">ยานพาหนะ</th>
                   <th scope="col" rowSpan="2" style={ VEHICLE_COLOR_STYLE }>สี</th>
                   <th scope="col" rowSpan="2" style={ VEHICLE_BRAND_STYLE }>ยี่ห้อ</th>
                   <th scope="col" rowSpan="2" style={ VEHICLE_SERIE_STYLE }>รุ่น</th>
-                  <th scope="col" rowSpan="2">ประเภท</th>
-                  <th scope="col" rowSpan="2">หมายเลข 13 หลัก</th>
-                  <th scope="col" rowSpan="2">บุคคล(ชื่อ/สกุล)</th>
                   <th scope="col" rowSpan="2">ผลการตรวจ</th>
                   <th scope="col" rowSpan="2">ภ.จว.ที่ขอตรวจ</th>
                   <th scope="col" rowSpan="2">ข้อมูลที่สมบูรณ์</th>
                 </tr>
                 <tr>
-                  <th scope="col">ทะเบียน</th>
-                  <th scope="col">ผู้ขับขี่/ครอบครอง</th>
-                  <th scope="col">ทะเบียน</th>
-                  <th scope="col">ผู้ขับขี่/ครอบครอง</th>
+                  <th scope="col">เลขทะเบียน</th>
+                  <th scope="col">ผู้ครอบครอง</th>
                 </tr>
               </thead>
               <tbody>

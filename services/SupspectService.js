@@ -91,7 +91,13 @@ class SupsepctService {
 
       this.connect.query(`SELECT * FROM results WHERE 1 = 1${query}`, queryVal, (err, res) => {
         if(err) reject(err)
-        resolve(res)
+
+        resolve(
+          res.map(_res => {
+            const [year, month, day] = _res.date.split("-")
+            return { ..._res, date: `${day}/${month}/${year}`, type: this.convertTypeToText(_res.type) }
+          })
+        )
       })
 
       this.connect.end()
@@ -118,6 +124,20 @@ class SupsepctService {
     } else {
       const { type, ...exSupspect } = supspect
       return { ...exSupspect }
+    }
+  }
+
+  convertTypeToText(type) {
+    switch(parseInt(type)) {
+      case SupsepctService.MOTORCYCLE:
+        return "จักรยานยนต์"
+
+      case SupsepctService.CAR:
+      case SupsepctService.CAR_OWNER_NOT_SAME:
+        return "รถยนต์"
+
+      default:
+        return ""
     }
   }
 }
