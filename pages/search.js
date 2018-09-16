@@ -67,12 +67,16 @@ export default class Search extends React.Component {
         <div className="row">
           <div className="col-4 form-group">
             <div>วันที่</div>
-            <input value={ dateFrom } onChange={ this.onFilterChanged.bind(null, 'dateFrom') }/> - <input value={ dateTo } onChange={ this.onFilterChanged.bind(null, 'dateTo') }/>
+            <input value={ dateFrom } onChange={ this.onFilterChanged.bind(null, 'dateFrom') } placeholder="yyyy-mm-dd" style={{ marginRight: 5 }}/>
+            -
+            <input value={ dateTo } onChange={ this.onFilterChanged.bind(null, 'dateTo') } placeholder="yyyy-mm-dd" style={{ marginLeft: 5 }}/>
           </div>
 
           <div className="col-4 form-group">
             <div>เวลา</div>
-            <input value={ timeFrom } onChange={ this.onFilterChanged.bind(null, 'timeFrom') }/> - <input value={ timeTo } onChange={ this.onFilterChanged.bind(null, 'timeTo') }/>
+            <input value={ timeFrom } onChange={ this.onFilterChanged.bind(null, 'timeFrom') } placeholder="hh.mm" style={{ marginRight: 5 }}/>
+            -
+            <input value={ timeTo } onChange={ this.onFilterChanged.bind(null, 'timeTo') } placeholder="hh.mm" style={{ marginLeft: 5 }}/>
           </div>
 
           <div className="col-4 form-group">
@@ -94,18 +98,18 @@ export default class Search extends React.Component {
 
         <div className="row">
           <div className="table-responsive">
-            <table className="table table-striped" style={{ width: "auto" }}>
+            <table className="table table-striped" style={{ width: "auto", fontSize: "12px" }}>
               <thead className="thead-light">
                 <tr>
-                  <th scope="col" rowSpan="2">วันที่</th>
+                  <th scope="col" rowSpan="2" style={{ width: 100 }}>วันที่</th>
                   <th scope="col" rowSpan="2">เวลา</th>
-                  <th scope="col" rowSpan="2">สภ</th>
-                  <th scope="col" rowSpan="2">ผู้ขอข้อมูล</th>
-                  <th scope="col" rowSpan="2">จุดตรวจ</th>
+                  <th scope="col" rowSpan="2" style={{ width: 120 }}>สภ</th>
+                  <th scope="col" rowSpan="2" style={{ width: 120 }}>ผู้ขอข้อมูล</th>
+                  <th scope="col" rowSpan="2" style={{ width: 100 }}>จุดตรวจ</th>
                   <th scope="col" rowSpan="2">หมายเลข 13 หลัก</th>
-                  <th scope="col" rowSpan="2">บุคคล(ชื่อ/สกุล)</th>
-                  <th scope="col" rowSpan="2">ประเภท</th>
-                  <th scope="col" colSpan="2">ยานพาหนะ</th>
+                  <th scope="col" rowSpan="2" style={{ width: 120 }}>บุคคล(ชื่อ/สกุล)</th>
+                  <th scope="col" rowSpan="2" style={{ width: 80 }}>ประเภท</th>
+                  <th scope="col" colSpan="2" style={{ width: 220 }}>ยานพาหนะ</th>
                   <th scope="col" rowSpan="2" style={ VEHICLE_COLOR_STYLE }>สี</th>
                   <th scope="col" rowSpan="2" style={ VEHICLE_BRAND_STYLE }>ยี่ห้อ</th>
                   <th scope="col" rowSpan="2" style={ VEHICLE_SERIE_STYLE }>รุ่น</th>
