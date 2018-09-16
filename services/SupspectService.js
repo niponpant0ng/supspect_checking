@@ -1,12 +1,51 @@
-module.exports = class SupsepctService {
+class SupsepctService {
   constructor(connect) {
     this.connect = connect
+  }
+
+  mergeSupspects(supspects) {
+    let types = []
+    let mergeSupspect = {}
+    let mergeSupspects = []
+
+    for(const supspect of supspects) {
+      if(this.isNotTypeChanged(supspect, types)) {
+        types.push(supspect.type)
+      } else {
+        types = []
+        mergeSupspects.push({ ...mergeSupspect })
+        mergeSupspect = {}
+      }
+
+      if(supspect.type === SupsepctService.MOTORCYCLE) {
+        const { motorcycle_register, motorcycle_owner, ...exSupspect } = this.excludeMotorCycleAndPerson(supspect)
+        mergeSupspect = {
+          ...mergeSupspect,
+          ...exSupspect,
+          plate_no: motorcycle_register,
+          owner: motorcycle_owner
+        }
+      } else if(supspect.type === SupsepctService.CAR || supspect.type === SupsepctService.CAR_OWNER_NOT_SAME) {
+        const { car_register, car_owner, ...exSupspect } = this.excludeCarAndPerson(supspect)
+        mergeSupspect = {
+          ...mergeSupspect,
+          ...exSupspect,
+          plate_no: car_register,
+          owner: car_owner
+        }
+      } else {
+        mergeSupspect = { ...mergeSupspect, ...this.excludeTypeIfExist(mergeSupspect, supspect) }
+      }
+    }
+    mergeSupspects.push(mergeSupspect)
+
+    return mergeSupspects
   }
 
   save(supspects) {
     this.connect.connect()
 
-    supspects.forEach(supspect => {
+    this.mergeSupspects(supspects).forEach(supspect => {
       this.connect.query('INSERT INTO results SET ?', supspect, null)
     })
 
@@ -58,4 +97,34 @@ module.exports = class SupsepctService {
       this.connect.end()
     })
   }
+
+  isNotTypeChanged(supspect, types) {
+    return types.length === 0 || !types.some(type => type === supspect.type)
+  }
+  
+  excludeCarAndPerson(supspect) {
+    const { car_register, car_owner, name, id_no, ...exSupspect } = supspect
+    return { car_register, car_owner, ...exSupspect }
+  }
+  
+  excludeMotorCycleAndPerson(supspect) {
+    const { motorcycle_register, motorcycle_owner, name, id_no, ...exSupspect } = supspect
+    return { motorcycle_register, motorcycle_owner, ...exSupspect }
+  }
+  
+  excludeTypeIfExist(mergeSupspect, supspect) {
+    if(mergeSupspect.type === undefined) {
+      return { ...supspect }
+    } else {
+      const { type, ...exSupspect } = supspect
+      return { ...exSupspect }
+    }
+  }
 }
+
+SupsepctService.PERSON = 0
+SupsepctService.MOTORCYCLE = 1
+SupsepctService.CAR = 2
+SupsepctService.CAR_OWNER_NOT_SAME = 3
+
+module.exports = SupsepctService

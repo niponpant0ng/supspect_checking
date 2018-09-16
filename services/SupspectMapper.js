@@ -31,6 +31,8 @@ module.exports = class SupspectMapper {
     if(fieldName === FILE_COLUMN_TO_DB_FIELD["A"]) {
       const [date, month, year] = val.split("-")
       return `${year}-${month}-${date}`
+    } else if(fieldName === FILE_COLUMN_TO_DB_FIELD["M"]) {
+      return parseInt(val)
     }
 
     return val
