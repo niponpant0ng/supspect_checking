@@ -18,7 +18,7 @@ export default (props) => (
   </h5>
 
   <div style={ menuStyle }>
-    <Link href={`/`}><a>นำเข้าข้อมูล</a></Link>
+    <Link href={`/upload`}><a>นำเข้าข้อมูล</a></Link>
     <div style={{ display: "inline-block", marginLeft: 10, marginRight: 10 }}>|</div>
     <Link href={`/search`}><a>ค้นหาข้อมูล</a></Link>
   </div>
