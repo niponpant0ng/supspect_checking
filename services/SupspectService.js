@@ -12,7 +12,7 @@ class SupsepctService {
       if(this.isNotTypeChanged(supspect, types)) {
         types.push(supspect.type)
       } else {
-        types = []
+        types = [supspect.type]
         mergeSupspects.push({ ...mergeSupspect })
         mergeSupspect = {}
       }

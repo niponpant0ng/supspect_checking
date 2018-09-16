@@ -202,5 +202,73 @@ describe("Supspect Service", () => {
       should.not.exist(mergeSupspects[1].id_no)
       should.not.exist(mergeSupspects[1].name)
     })
+
+    it("should there is 3 row for 2 vehicle data and person detail and vehicle data only", () => {
+      const supspects = [{ ...createSupspectDetail(),
+          "type": SupspectService.CAR,
+          "car_register": "23i492j",
+          "car_owner": "John Doe",
+          "color": "red",
+          "brand": "Honda",
+          "model": "Civic",
+        }, { ...createSupspectDetail(),
+          "type": SupspectService.PERSON,
+          "id_no": "1100800516789",
+          "name": "John Doe",
+        },
+
+        { ...createSupspectDetail(),
+          "type": SupspectService.CAR,
+          "car_register": "czx23r2r23",
+          "car_owner": "Foo Bar",
+          "color": "blue",
+          "brand": "Toyota",
+          "model": "Yaris",
+        }, { ...createSupspectDetail(),
+          "type": SupspectService.PERSON,
+          "id_no": "1100833516789",
+          "name": "Foo Bar",
+        },
+
+        { ...createSupspectDetail(),
+          "type": SupspectService.CAR,
+          "car_register": "qqx23r2r23",
+          "car_owner": "Aor",
+          "color": "green",
+          "brand": "Toyota",
+          "model": "Yaris",
+        }
+      ]
+
+      const mergeSupspects = supspectService.mergeSupspects(supspects)
+
+      mergeSupspects.should.have.length(3)
+      mergeSupspects[0].type.should.equal(SupspectService.CAR)
+      mergeSupspects[0].plate_no.should.equal('23i492j')
+      mergeSupspects[0].owner.should.equal('John Doe')
+      mergeSupspects[0].color.should.equal('red')
+      mergeSupspects[0].brand.should.equal('Honda')
+      mergeSupspects[0].model.should.equal('Civic')
+      mergeSupspects[0].id_no.should.equal('1100800516789')
+      mergeSupspects[0].name.should.equal('John Doe')
+
+      mergeSupspects[1].type.should.equal(SupspectService.CAR)
+      mergeSupspects[1].plate_no.should.equal('czx23r2r23')
+      mergeSupspects[1].owner.should.equal('Foo Bar')
+      mergeSupspects[1].color.should.equal('blue')
+      mergeSupspects[1].brand.should.equal('Toyota')
+      mergeSupspects[1].model.should.equal('Yaris')
+      mergeSupspects[1].id_no.should.equal('1100833516789')
+      mergeSupspects[1].name.should.equal('Foo Bar')
+
+      mergeSupspects[2].type.should.equal(SupspectService.CAR)
+      mergeSupspects[2].plate_no.should.equal('qqx23r2r23')
+      mergeSupspects[2].owner.should.equal('Aor')
+      mergeSupspects[2].color.should.equal('green')
+      mergeSupspects[2].brand.should.equal('Toyota')
+      mergeSupspects[2].model.should.equal('Yaris')
+      should.not.exist(mergeSupspects[2].id_no)
+      should.not.exist(mergeSupspects[2].name)
+    })
   })
 })
