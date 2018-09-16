@@ -1,6 +1,10 @@
 import React from "react"
 import axios from "axios"
 
+const VEHICLE_COLOR_STYLE = { background: "#8EAADB" }
+const VEHICLE_BRAND_STYLE = { background: "#FFD964" }
+const VEHICLE_SERIE_STYLE = { background: "#A9CD90" }
+
 export default class Search extends React.Component {
   constructor(props) {
     super(props)
@@ -48,9 +52,9 @@ export default class Search extends React.Component {
         <td>{ result.car_owner }</td>
         <td>{ result.motorcycle_register }</td>
         <td>{ result.motorcycle_owner }</td>
-        <td>{ result.color }</td>
-        <td>{ result.brand }</td>
-        <td>{ result.model }</td>
+        <td style={ VEHICLE_COLOR_STYLE }>{ result.color }</td>
+        <td style={ VEHICLE_BRAND_STYLE }>{ result.brand }</td>
+        <td style={ VEHICLE_SERIE_STYLE }>{ result.model }</td>
         <td>{ result.type }</td>
         <td>{ result.id_no }</td>
         <td>{ result.name }</td>
@@ -102,9 +106,9 @@ export default class Search extends React.Component {
                   <th scope="col" rowSpan="2">จุดตรวจ</th>
                   <th scope="col" colSpan="2">จยย</th>
                   <th scope="col" colSpan="2">รถยนต์</th>
-                  <th scope="col" rowSpan="2">สี</th>
-                  <th scope="col" rowSpan="2">ยี่ห้อ</th>
-                  <th scope="col" rowSpan="2">รุ่น</th>
+                  <th scope="col" rowSpan="2" style={ VEHICLE_COLOR_STYLE }>สี</th>
+                  <th scope="col" rowSpan="2" style={ VEHICLE_BRAND_STYLE }>ยี่ห้อ</th>
+                  <th scope="col" rowSpan="2" style={ VEHICLE_SERIE_STYLE }>รุ่น</th>
                   <th scope="col" rowSpan="2">ประเภท</th>
                   <th scope="col" rowSpan="2">หมายเลข 13 หลัก</th>
                   <th scope="col" rowSpan="2">บุคคล(ชื่อ/สกุล)</th>
