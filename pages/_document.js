@@ -1,4 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
+import Layout from "../components/Layout"
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -15,10 +16,12 @@ export default class MyDocument extends Document {
 
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossOrigin="anonymous"/>
 
-          <title>Hello, world!</title>
+          <title>ระบบสถิติข้อมูลยานพาหนะย้อนหลัง</title>
         </head>
         <body>
-          <Main />
+          <Layout>
+            <Main />
+          </Layout>
           <NextScript />
         </body>
       </html>
