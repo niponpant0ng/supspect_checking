@@ -18,6 +18,7 @@ export default class Search extends React.Component {
         timeTo: "",
         plateNo: "",
         idNo: "",
+        name: "",
       },
     }
 
@@ -40,7 +41,7 @@ export default class Search extends React.Component {
   }
 
   render() {
-    const { dateFrom, dateTo, timeFrom, timeTo, plateNo, idNo } = this.state.filter
+    const { dateFrom, dateTo, timeFrom, timeTo, plateNo, idNo, name } = this.state.filter
     const rows = this.state.results.map((result, index) => (
       <tr key={ index }>
         <td>{ result.date }</td>
@@ -89,6 +90,11 @@ export default class Search extends React.Component {
           <div className="col-4 form-group">
             <div>หมายเลขบัตรประชาชน</div>
             <input value={ idNo } onChange={ this.onFilterChanged.bind(null, 'idNo') }/>
+          </div>
+
+          <div className="col-4 form-group">
+            <div>ชื่อ - สกุล(ผู้ครอบครอง, ชื่อบุคคล)</div>
+            <input value={ name } onChange={ this.onFilterChanged.bind(null, 'name') }/>
           </div>
 
           <div className="col-4 form-group">

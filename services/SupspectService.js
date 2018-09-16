@@ -77,7 +77,7 @@ class SupsepctService {
     }
 
     if(filter['plateNo'] !== "") {
-      query += " AND (motorcycle_register LIKE ? OR car_register LIKE ?)"
+      query += " AND plate_no LIKE ?"
       queryVal.push(`%${filter['plateNo']}%`, `%${filter['plateNo']}%`)
     }
 
@@ -86,18 +86,27 @@ class SupsepctService {
       queryVal.push(`%${filter['idNo']}%`)
     }
 
+    if(filter['name'] !== "") {
+      query += " AND (name LIKE ? OR owner LIKE ?)"
+      queryVal.push(`%${filter['name']}%`, `%${filter['name']}%`)
+    }
+
     return new Promise((resolve, reject) => {
       this.connect.connect()
 
       this.connect.query(`SELECT * FROM results WHERE 1 = 1${query}`, queryVal, (err, res) => {
         if(err) reject(err)
 
-        resolve(
-          res.map(_res => {
-            const [year, month, day] = _res.date.split("-")
-            return { ..._res, date: `${day}/${month}/${year}`, type: this.convertTypeToText(_res.type) }
-          })
-        )
+        if(res === undefined) {
+          resolve([])
+        } else {
+          resolve(
+            res.map(_res => {
+              const [year, month, day] = _res.date.split("-")
+              return { ..._res, date: `${day}/${month}/${year}`, type: this.convertTypeToText(_res.type) }
+            })
+          )
+        }
       })
 
       this.connect.end()
