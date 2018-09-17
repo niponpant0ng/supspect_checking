@@ -24,7 +24,7 @@ module.exports = class SupspectMapper {
     const fieldName = FILE_COLUMN_TO_DB_FIELD[col]
     const fieldVal = SupspectMapper.formatFieldValue(fieldName, val)
 
-    return { [fieldName]: fieldVal }
+    return fieldVal === ""? {}: { [fieldName]: fieldVal }
   }
 
   static formatFieldValue(fieldName, val) {
@@ -35,7 +35,7 @@ module.exports = class SupspectMapper {
       return parseInt(val)
     }
 
-    return val
+    return val.trim()
   }
 
   static isRowVal(worksheet, row) {
