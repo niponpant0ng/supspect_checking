@@ -59,7 +59,7 @@ app.prepare()
         const supsepctService = new SupsepctService(connect())
         supsepctService.save(supspects)
 
-        res.redirect("/")
+        res.redirect("/upload")
       } catch(err) {
         console.log(err)
         res.sendStatus(500).send("<a href='/'>Can't upload file</a>")

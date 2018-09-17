@@ -9,16 +9,23 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props)
 
+    const date = new Date()
+    const defaultDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+
     this.state = {
       results: [],
       filter: {
-        dateFrom: "",
-        dateTo: "",
+        dateFrom: defaultDate,
+        dateTo: defaultDate,
         timeFrom: "",
         timeTo: "",
         plateNo: "",
         idNo: "",
         name: "",
+        color: "",
+        brand: "",
+        serie: "",
+        area: "",
       },
     }
 
@@ -41,7 +48,7 @@ export default class Search extends React.Component {
   }
 
   render() {
-    const { dateFrom, dateTo, timeFrom, timeTo, plateNo, idNo, name } = this.state.filter
+    const { dateFrom, dateTo, timeFrom, timeTo, plateNo, idNo, name, color, brand, serie, area } = this.state.filter
     const rows = this.state.results.map((result, index) => (
       <tr key={ index }>
         <td>{ result.date }</td>
@@ -66,39 +73,65 @@ export default class Search extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-4 form-group">
+          <div className="col-3 form-group">
             <div>วันที่</div>
-            <input value={ dateFrom } onChange={ this.onFilterChanged.bind(null, 'dateFrom') } placeholder="yyyy-mm-dd" style={{ marginRight: 5 }}/>
+            <input value={ dateFrom } onChange={ this.onFilterChanged.bind(null, 'dateFrom') } placeholder="dd/mm/yyyy"
+              style={{ marginRight: 5, width: 110 }}/>
             -
-            <input value={ dateTo } onChange={ this.onFilterChanged.bind(null, 'dateTo') } placeholder="yyyy-mm-dd" style={{ marginLeft: 5 }}/>
+            <input value={ dateTo } onChange={ this.onFilterChanged.bind(null, 'dateTo') } placeholder="dd/mm/yyyy"
+              style={{ marginLeft: 5, width: 110 }}/>
           </div>
 
-          <div className="col-4 form-group">
+          <div className="col-3 form-group">
             <div>เวลา</div>
-            <input value={ timeFrom } onChange={ this.onFilterChanged.bind(null, 'timeFrom') } placeholder="hh.mm" style={{ marginRight: 5 }}/>
+            <input value={ timeFrom } onChange={ this.onFilterChanged.bind(null, 'timeFrom') } placeholder="hh.mm"
+              style={{ marginRight: 5, width: 70 }}/>
             -
-            <input value={ timeTo } onChange={ this.onFilterChanged.bind(null, 'timeTo') } placeholder="hh.mm" style={{ marginLeft: 5 }}/>
+            <input value={ timeTo } onChange={ this.onFilterChanged.bind(null, 'timeTo') } placeholder="hh.mm"
+              style={{ marginLeft: 5, width: 70 }}/>
           </div>
 
-          <div className="col-4 form-group">
-            <div>ทะเบียนรถ</div>
-            <input value={ plateNo } onChange={ this.onFilterChanged.bind(null, 'plateNo') }/>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-4 form-group">
+          <div className="col-3 form-group">
             <div>หมายเลขบัตรประชาชน</div>
             <input value={ idNo } onChange={ this.onFilterChanged.bind(null, 'idNo') }/>
           </div>
 
-          <div className="col-4 form-group">
+          <div className="col-3 form-group">
             <div>ชื่อ - สกุล(ผู้ครอบครอง, ชื่อบุคคล)</div>
             <input value={ name } onChange={ this.onFilterChanged.bind(null, 'name') }/>
           </div>
+        </div>
+
+        <div className="row">
+          <div className="col-3 form-group">
+            <div>ทะเบียนรถ</div>
+            <input value={ plateNo } onChange={ this.onFilterChanged.bind(null, 'plateNo') }/>
+          </div>
+
+          <div className="col-3 form-group">
+            <div>สี</div>
+            <input value={ color } onChange={ this.onFilterChanged.bind(null, 'color') }/>
+          </div>
+
+          <div className="col-3 form-group">
+            <div>ยี่ห้อ</div>
+            <input value={ brand } onChange={ this.onFilterChanged.bind(null, 'brand') }/>
+          </div>
+
+          <div className="col-3 form-group">
+            <div>รุ่น</div>
+            <input value={ serie } onChange={ this.onFilterChanged.bind(null, 'serie') }/>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-3 form-group">
+            <div>จุดตรวจ</div>
+            <input value={ area } onChange={ this.onFilterChanged.bind(null, 'area') }/>
+          </div>
 
           <div className="col-4 form-group">
-            <button className="btn btn-primary" onClick={ this.onSearchClicked }>ค้นหา</button>
+            <button className="btn btn-primary" onClick={ this.onSearchClicked } style={{ marginTop: 15 }}>ค้นหา</button>
           </div>
         </div>
 

@@ -53,17 +53,25 @@ class SupsepctService {
   }
 
   find(filter) {
+    const convertDateFormat = (date) => {
+      const dates = date.split("/")
+      const day = dates[0].length === 1? `0${dates[0]}`: dates[0]
+      const month = dates[1].length === 1? `0${dates[1]}`: dates[1]
+
+      return `${dates[2]}-${month}-${day}`
+    }
+
     let query = ""
     let queryVal = []
 
     if(filter['dateFrom'] !== "") {
       query += " AND date >= ?"
-      queryVal.push(filter['dateFrom'])
+      queryVal.push(convertDateFormat(filter['dateFrom']))
     }
 
     if(filter['dateTo'] !== "") {
       query += " AND date <= ?"
-      queryVal.push(filter['dateTo'])
+      queryVal.push(convertDateFormat(filter['dateTo']))
     }
 
     if(filter['timeFrom'] !== "") {
@@ -91,9 +99,31 @@ class SupsepctService {
       queryVal.push(`%${filter['name']}%`, `%${filter['name']}%`)
     }
 
+    if(filter['color'] !== "") {
+      query += " AND color LIKE ?"
+      queryVal.push(`%${filter['color']}%`)
+    }
+
+    if(filter['brand'] !== "") {
+      query += " AND brand LIKE ?"
+      queryVal.push(`%${filter['brand']}%`)
+    }
+
+    if(filter['serie'] !== "") {
+      query += " AND serie LIKE ?"
+      queryVal.push(`%${filter['serie']}%`)
+    }
+
+    if(filter['area'] !== "") {
+      query += " AND area LIKE ?"
+      queryVal.push(`%${filter['area']}%`)
+    }
+
     return new Promise((resolve, reject) => {
       this.connect.connect()
 
+      console.log(query)
+      console.log(queryVal)
       this.connect.query(`SELECT * FROM results WHERE 1 = 1${query}`, queryVal, (err, res) => {
         if(err) reject(err)
 
