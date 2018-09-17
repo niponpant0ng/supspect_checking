@@ -9,12 +9,12 @@ class SupsepctService {
     let mergeSupspects = []
 
     for(const supspect of supspects) {
-      if(this.isNotTypeChanged(supspect, types)) {
-        types.push(supspect.type)
-      } else {
+      if(this.isTypeChange(supspect, types)) {
         types = [supspect.type]
         mergeSupspects.push({ ...mergeSupspect })
         mergeSupspect = {}
+      } else {
+        types.push(supspect.type)
       }
 
       if(supspect.type === SupsepctService.MOTORCYCLE) {
@@ -122,8 +122,6 @@ class SupsepctService {
     return new Promise((resolve, reject) => {
       this.connect.connect()
 
-      console.log(query)
-      console.log(queryVal)
       this.connect.query(`SELECT * FROM results WHERE 1 = 1${query}`, queryVal, (err, res) => {
         if(err) reject(err)
 
@@ -143,8 +141,11 @@ class SupsepctService {
     })
   }
 
-  isNotTypeChanged(supspect, types) {
-    return types.length === 0 || !types.some(type => type === supspect.type)
+  isTypeChange(supspect, types) {
+    const isMoreThanOneVechile = types.some(type => type !== SupsepctService.PERSON) && supspect.type !== SupsepctService.PERSON
+    const isDuplicateType = types.some(type => type === supspect.type)
+
+    return types.length !== 0 && (isMoreThanOneVechile || isDuplicateType)
   }
   
   excludeCarAndPerson(supspect) {

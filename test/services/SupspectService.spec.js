@@ -161,7 +161,8 @@ describe("Supspect Service", () => {
     })
 
     it("should there is 2 row for vehicle data and person detail and person detail only", () => {
-      const supspects = [{ ...createSupspectDetail(),
+      const supspects = [
+      { ...createSupspectDetail(),
         "type": SupspectService.CAR,
         "car_register": "23i492j",
         "car_owner": "John Doe",
@@ -172,13 +173,14 @@ describe("Supspect Service", () => {
         "type": SupspectService.PERSON,
         "id_no": "1100800516789",
         "name": "John Doe",
-      }, { ...createSupspectDetail(),
-        "type": SupspectService.CAR,
-        "car_register": "czx23r2r23",
-        "car_owner": "Foo Bar",
+      },
+      { ...createSupspectDetail(),
+        "type": SupspectService.MOTORCYCLE,
+        "motorcycle_register": "czx23r2r23",
+        "motorcycle_owner": "Foo Bar",
         "color": "blue",
-        "brand": "Toyota",
-        "model": "Yaris",
+        "brand": "HONDA",
+        "model": "ScopyI",
       }]
 
       const mergeSupspects = supspectService.mergeSupspects(supspects)
@@ -193,12 +195,12 @@ describe("Supspect Service", () => {
       mergeSupspects[0].id_no.should.equal('1100800516789')
       mergeSupspects[0].name.should.equal('John Doe')
 
-      mergeSupspects[1].type.should.equal(SupspectService.CAR)
+      mergeSupspects[1].type.should.equal(SupspectService.MOTORCYCLE)
       mergeSupspects[1].plate_no.should.equal('czx23r2r23')
       mergeSupspects[1].owner.should.equal('Foo Bar')
       mergeSupspects[1].color.should.equal('blue')
-      mergeSupspects[1].brand.should.equal('Toyota')
-      mergeSupspects[1].model.should.equal('Yaris')
+      mergeSupspects[1].brand.should.equal('HONDA')
+      mergeSupspects[1].model.should.equal('ScopyI')
       should.not.exist(mergeSupspects[1].id_no)
       should.not.exist(mergeSupspects[1].name)
     })

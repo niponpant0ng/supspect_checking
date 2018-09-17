@@ -9,14 +9,11 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props)
 
-    const date = new Date()
-    const defaultDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
-
     this.state = {
       results: [],
       filter: {
-        dateFrom: defaultDate,
-        dateTo: defaultDate,
+        dateFrom: "",
+        dateTo: "",
         timeFrom: "",
         timeTo: "",
         plateNo: "",

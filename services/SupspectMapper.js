@@ -35,7 +35,7 @@ module.exports = class SupspectMapper {
       return parseInt(val)
     }
 
-    return val.trim()
+    return val.toString().trim()
   }
 
   static isRowVal(worksheet, row) {
