@@ -29,13 +29,21 @@ module.exports = class SupspectMapper {
 
   static formatFieldValue(fieldName, val) {
     if(fieldName === FILE_COLUMN_TO_DB_FIELD["A"]) {
-      const [date, month, year] = val.split("-")
-      return `${year}-${month}-${date}`
+      return SupspectMapper.formatDate(val)
     } else if(fieldName === FILE_COLUMN_TO_DB_FIELD["M"]) {
       return parseInt(val)
     }
 
     return val.toString().trim()
+  }
+
+  static formatDate(val) {
+    const formatDayOrMonth = (val) => val.length === 1? `0${val}`: val
+
+    let seperate = (val.search("/") === -1)? "-": "/"
+    const [date, month, year] = val.split(seperate)
+
+    return `${year}-${formatDayOrMonth(month)}-${formatDayOrMonth(date)}`
   }
 
   static isRowVal(worksheet, row) {
